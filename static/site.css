@@ -1,0 +1,350 @@
+@font-face {
+  font-family: 'VHS Gothic';
+  src: local("VHS Gothic"), url('./vhs-gothic.ttf') format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Hack';
+  src: local("Hack Regular"), url('./Hack.ttf') format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+	font-family: 'VHS Gothic';
+	margin: 0;
+	color: #ccc;
+
+	background-image: url("./images/netherrack.png");
+	image-rendering: pixelated;
+	width: 100%;
+	height: 32px;
+	background-repeat: repeat;
+  background-size: auto 100%;
+}
+
+.header {
+	position: relative;
+	height: 28em;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	background: #AC2020;
+	background: linear-gradient(360deg, rgba(172, 32, 32, 1) 0%, rgba(106, 4, 0, 1) 100%);
+}
+
+.header::after {
+	position: absolute;
+	content: '';
+	bottom: 0;
+	background-image: url("./images/dirt.png");
+	image-rendering: pixelated;
+	width: 100%;
+	height: 32px;
+	background-repeat: repeat-x;
+    background-size: auto 100%;
+}
+
+.header .logo {
+	image-rendering: pixelated;
+	width: 10em;
+	heigth: 10em;
+}
+
+.header .server-name {
+	font-size: 2em;
+}
+
+.header .background-tree {
+  position: absolute;
+  bottom: 0;
+  left: 2em;
+  height: 160px; /* set this to the image's height in pixels */
+  width: auto;
+  image-rendering: pixelated;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.header .background-light {
+  position: absolute;
+  bottom: 0;
+  right: 2em;
+  height: 64px; /* set this to the image's height in pixels */
+  width: auto;
+  image-rendering: pixelated;
+  pointer-events: none;
+  z-index: 0;
+  animation: glow-pulse 3s infinite;
+}
+
+.header .server-block {
+	display: flex;
+	margin-top: 1em;
+	z-index: 4;
+
+	padding: 0.45em;
+	background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("./images/earth-dirt.png");
+	image-rendering: pixelated;
+	width: 43%;
+/*	height: ;*/
+	background-repeat: repeat;
+  background-size: auto 100%;
+  border: 2px solid slategray;
+}
+
+.header .server-block .server-logo {
+	margin-right: 10px;
+	height: fit-content;
+}
+
+.header .server-block .server-info {
+	display: flex;
+	flex-direction: column;
+}
+
+.header .server-block .server-status {
+	margin-left: auto;
+}
+
+.header .buttons {
+	display: flex;
+	gap: 5px;
+	margin-top: 1em;
+	width: 44em;
+}
+
+.header .buttons > .fancy-button {
+	flex: 1 1 0;
+	min-width: 0;
+}
+
+.fancy-button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: fit-content;
+	height: 3em;
+	font-size: 1em;
+	user-select: none;
+	padding-left: 5px;
+	padding-right: 5px;
+
+	border: 2px solid #101010;
+	color: white;
+	text-shadow: 2px 2px #000A;
+	background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('./images/stone.png');
+	box-shadow: inset -2px -4px #0006, inset 2px 2px #FFF7;
+}
+
+.content {
+	width: 70%;
+	margin: auto;
+}
+
+.mc-heading {
+	border-image-source: url('./images/header-background-9slice.png');
+	image-rendering: pixelated;
+  border-image-slice: 5 fill;
+  border-image-repeat: round;
+  border-image-width: 22px;
+  text-align: center;
+ 	padding: 10px;
+ 	font-size: 1.5em;
+}
+
+.mc-main {
+	border-image-source: url('./images/2-header-background-9slice.png');
+	image-rendering: pixelated;
+  border-image-slice: 5 fill;
+  border-image-repeat: round;
+  border-image-width: 26px;
+/*  text-align: center;*/
+ 	padding: 2em;
+ 	font-size: 1.2em;
+ 	line-height: 1.7em;
+ 	color: #333;
+}
+
+.mc-main .voting-buttons {
+	margin-top: 0.5em;
+	flex: 1;
+	display: flex;
+	justify-content: center;
+	gap: 5px;
+}
+
+.mc-main .fancy-button {
+	font-size: 0.7em;
+	line-height: normal;
+	width: 33em;
+}
+
+.mc-main .a {
+	text-decoration: none;
+}
+
+.hr-block {
+	border: 0px;
+	background-image: url('./images/lava.gif');
+	height: 32px;
+}
+
+.mc-footer {
+	display: flex;
+	padding: 1em 2em 2em 2em;
+
+	color: #ddd;
+
+	background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("./images/bedrock.png");
+	image-rendering: pixelated;
+	height: 16px;
+	background-repeat: repeat;
+  background-size: auto 100%;
+}
+
+.mc-footer .left {
+	display: flex;
+	flex-direction: column;
+}
+
+.mc-footer .right img {
+	image-rendering: pixelated;
+	height: 36px;
+}
+
+.mc-footer a, .mc-footer a:hover, .mc-footer a:visited {
+	text-decoration: none;
+	color: #55FFFF;
+}
+
+.fancy-button:hover {
+	background: linear-gradient(rgba(255, 255, 85, 0.3), rgba(255, 255, 85, 0.3)), url('./images/stone.png');
+}
+
+.fancy-button:active {
+	box-shadow: none;
+}
+
+.fancy-button img {
+	height: 2.5em;
+	image-rendering: pixelated;
+}
+
+.header a, .header a:hover, .header a:visited {
+	text-decoration: none;
+}
+
+.furti {
+	background: #000;
+	text-align: center;
+	padding-top: 5px;
+	padding-bottom: 10px;
+}
+
+.furti a, .furti a:visited {
+	color: #ccc;
+	text-decoration: underline;
+	text-underline-offset: 3px;
+}
+
+.furti a:hover {
+	color: #000;
+	background: #ccc;
+}
+
+.simple-header {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #ccc;
+
+	padding: 15px;
+	background: linear-gradient(360deg, rgba(172, 32, 32, 1) 0%, rgba(106, 4, 0, 1) 100%);
+}
+
+a[class='simple-header'] {
+	color: #ccc;
+	text-decoration: none;
+}
+
+.simple-box {
+	font-family: 'Hack';
+	margin: 1em;
+	padding: 10px 40px 30px 40px;
+	color: black;
+	line-height: 1.4;
+
+	border-image-source: url('./images/2-header-background-9slice.png');
+	image-rendering: pixelated;
+  border-image-slice: 5 fill;
+  border-image-repeat: round;
+  border-image-width: 26px;
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 0 rgba(182, 47, 9, 0))
+            drop-shadow(0 0 0 rgba(228, 114, 5, 0))
+            drop-shadow(0 0 0 rgba(254, 135, 56, 0));
+  }
+  50% {
+    filter: drop-shadow(0 0 5px rgba(182, 47, 9, 1))
+            drop-shadow(0 0 10px rgba(228, 114, 5, 1))
+            drop-shadow(0 0 15px rgba(254, 135, 56, 1));
+  }
+}
+
+@media (max-width: 576px) {
+	.content {
+		width: 100%;
+	}
+
+	.mc-footer {
+		height: 10em;
+	}
+
+	.mc-main .voting-buttons {
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.mc-main .voting-buttons .fancy-button {
+		width: 80%;
+	}
+
+	.header {
+		height: 35em;
+	}
+
+	.header .background-tree {
+		left: 0.2em;
+	}
+
+	.header .logo {
+		width: 5em;
+	}
+
+	.header .server-name {
+		font-size: 1em;
+	}
+
+	.header .buttons {
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.header .server-block {
+		width: 80%;
+	}
+
+	.header .server-block .server-logo {
+		display: none;
+	}
+}

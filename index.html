@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Royal Bengal Network</title>
+    <link rel="stylesheet" href="./static/site.css">
+</head>
+<body>
+    <div class="header">
+        <img src="./static/images/fungus.png" class="background-tree" />
+        <img src="./static/images/shroomlight.png" class="background-light" />
+
+        <div><img class="logo" src="./static/images/potion.png"></div>
+        <!-- <div id='3d-render'></div> -->
+        <div class="server-name">Royal Bengal Network</div>
+
+        <div class="buttons">
+            <div class="fancy-button" onclick="copyToClipboard()"><img src="./static/images/Player.png"><span style="margin: auto">play.royalbengalbd.com</span></div>
+            <a class="fancy-button" href="https://discord.com/invite/CPsjzEQ66c" target="_blank"><img src="./static/images/Globe.png"><span id='discord-count' style="margin: auto">Discord (0 online)</span></a>
+        </div>
+
+        <div class="server-block">
+            <img id="srv-logo" class="server-logo" src="./static/images/default-world-icon.svg" width="64">
+
+            <div class="server-info">
+                <div>Royal Bengal Network</div>
+                <div id='srv-motd'>Fetching...</div>
+            </div>
+            <div id='srv-stat' class="server-status">
+                0 / 0
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="mc-heading">
+            <div style="margin: 10px">What is Royal Bengal Network?</div>
+        </div>
+
+        <div class="mc-main">
+            <center>
+                <div id='3d-render'></div>
+            </center>
+            <br>
+            Royal Bengal Network is a Minecraft server (SMP) operated from Bangladesh with a focus on community and collaboration. 
+        </div>
+
+        <div class="mc-heading">
+            <div style="margin: 10px">Voting</div>
+        </div>
+
+            <div class='mc-main'>
+                You can vote to earn rewards in-game:
+                <div class="voting-buttons">
+                    <a class="fancy-button a" href="https://topminecraftservers.org/server/15210" target="_blank"><img src="./static/images/1.png"><span id='discord-count' style="margin: auto">TopMC</span></a>
+
+                    <a class="fancy-button a" href="https://minecraft-mp.com/server-s341646" target="_blank"><img src="./static/images/2.png"><span id='discord-count' style="margin: auto">Minecraft-MP</span></a>
+
+                    <a class="fancy-button a" href="https://topg.org/minecraft-servers/server-671202" target="_blank"><img src="./static/images/3.png"><span id='discord-count' style="margin: auto">TopG</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="hr-block"></div>
+
+    <div class="mc-footer">
+        <div class="left" style="margin-right: auto">
+            <div>Not affiliated with Mojang Studios or Microsoft</div>
+            <div><a href="/tos.html">Terms of Service</a> | <a href="/privacy.html">Privacy Policy</a></div>
+        </div>
+
+        <div class="right">
+            <a href="https://discord.com/invite/CPsjzEQ66c"><img src="./static/images/Discord.png"></a>
+            <a href="https://www.facebook.com/royalbengalmc"><img src="./static/images/Facebook.png"></a>
+            <a href="https://www.instagram.com/royalbengal_mc/"><img src="./static/images/Instagram.png"></a>
+            <a href="https://www.youtube.com/@RoyalBengalMinecraft"><img src="./static/images/Youtube.png"></a>
+        </div>
+    </div>
+
+    <div class="furti">
+        <img src="./static/images/PaintBrush.png"> designed by <a href="https://furtidev.github.io" target="_blank">furtidev</a>
+    </div>
+</body>
+
+<script type="module">
+    import * as THREE from './libraries/three.module.min.js';
+    import { OrbitControls } from './libraries/OrbitControls.js';
+    import { GLTFLoader } from './libraries/GLTFLoader.js';
+    import { DRACOLoader } from './libraries/DRACOLoader.js';
+    import { RoomEnvironment } from './libraries/RoomEnvironment.js';
+    //create a scene
+    const scene = new THREE.Scene();
+    const loader = new GLTFLoader();
+    const dracoLoader = new DRACOLoader();
+    dracoLoader.setDecoderPath( './libraries/draco/' );
+    loader.setDRACOLoader( dracoLoader );
+
+    //create a camera
+    const camera = new THREE.PerspectiveCamera(
+      50,
+      window.innerWidth / window.innerHeight,
+      0.8,
+      50
+    );
+    camera.position.z = 2;
+
+    let potion;
+
+    loader.load( './static/potion.gltf', function ( gltf ) {
+        potion = gltf.scene;
+        potion.position.y -= 0.8;
+        potion.scale.set(0.1, 0.1, 0.1);
+
+        potion.traverse((obj) => {
+            if (obj.isMesh && obj.material && obj.material.isMeshStandardMaterial) {
+                obj.material.envMapIntensity = 3;
+                obj.material.roughness = 0.1;
+                obj.material.metalness = 0.7;
+                obj.material.needsUpdate = true;
+            }
+        });
+
+        scene.add( potion );
+
+    }, undefined, function ( error ) {
+
+        console.error( error );
+
+    });
+
+    // too dim otherwise
+    const dirLight = new THREE.DirectionalLight(0xffffff, 50);
+    dirLight.position.set(0, 10, 8);
+    dirLight.rotation.y = 45;
+    scene.add(dirLight);
+
+    // create render with settings
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth * 0.2, window.innerHeight * 0.2);
+    renderer.render(scene, camera);
+    renderer.physicallyCorrectLights = true;
+    renderer.outputEncoding = THREE.sRGBEncoding;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.0;
+
+
+    const environment = new RoomEnvironment();
+    environment.traverse((obj) => {
+        if (obj.isMesh && obj.material && obj.material.isMeshBasicMaterial) {
+            obj.material.color.setRGB(1.2, 1.05, 0.95);
+        }
+    });
+
+    environment.traverse((obj) => {
+        if (obj.isPointLight) {
+            obj.color.setRGB(1.0, 0.95, 0.85);
+        }
+    });
+
+    const pmremGenerator = new THREE.PMREMGenerator( renderer );
+    scene.environment = pmremGenerator.fromScene( environment ).texture;
+
+    var axis = new THREE.Vector3(0,1,0);
+
+    //animation loop
+    const animate = () => {
+      requestAnimationFrame(animate);
+      if (potion) {
+            potion.rotateOnAxis(axis, 0.1);
+      }
+      renderer.render(scene, camera);
+    };
+
+    animate();
+
+    document.getElementById('3d-render').appendChild(renderer.domElement);
+</script>
+
+<script type="text/javascript">
+function copyToClipboard() {
+    navigator.clipboard.writeText("play.royalbengalbd.com");
+    alert("Copied to clipboard!");
+}
+</script>
+
+<script type="module">
+let [minecraft, discord] = await Promise.all([
+    fetch('https://api.mcsrvstat.us/3/play.royalbengalbd.com').then(response => response.json()),
+    fetch('https://discord.com/api/v9/invites/CPsjzEQ66c?with_counts=true&with_expiration=true').then(response => response.json()),
+])
+
+if (minecraft.online) {
+    document.getElementById('srv-logo').src = minecraft.icon;
+    minecraft.motd.html.forEach((value, index, array) => {
+        let motd = document.getElementById('srv-motd');
+
+        if (motd.innerHTML == 'Fetching...') {
+            motd.innerHTML = '';
+        } 
+
+        motd.innerHTML = `<div>${motd.innerHTML}</div><div>${value}</div>`;
+    });
+
+    document.getElementById('srv-stat').textContent = `${minecraft.players.online} / ${minecraft.players.max}`;
+} else {
+    let motd = document.getElementById('srv-motd');
+    motd.textContent = 'Server is offline!';
+}
+
+document.getElementById('discord-count').textContent = `Discord (${discord.profile.online_count} online)`;
+</script>
+
+</html>
